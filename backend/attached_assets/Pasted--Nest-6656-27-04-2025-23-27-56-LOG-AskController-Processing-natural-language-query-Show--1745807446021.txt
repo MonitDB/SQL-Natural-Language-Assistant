@@ -1,0 +1,88 @@
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [AskController] Processing natural language query: Show me list of schemas available
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [AskService] Connecting to mysql database...
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [DatabaseService] Connecting to database: Monitdb@monitdb-dev.ddns.net
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [DatabaseService] Detected database type: mysql
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [DatabaseFactoryService] Creating database provider for type: mysql
+[Nest] 6656  - 27/04/2025, 23:27:56     LOG [MysqlDatabaseProvider] Connecting to MySQL database: monitdb-dev.ddns.net:3306/sys
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [MysqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [MysqlDatabaseProvider] ✓ MySQL connection successful
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [DatabaseService] Connected successfully to mysql database: Monitdb@monitdb-dev.ddns.net
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [AskService] Connected to database successfully
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [DatabaseService] Executing SQL query: SELECT CURRENT_USER() AS current_user
+[Nest] 6656  - 27/04/2025, 23:27:58     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT CURRENT_USER() AS current_user
+[Nest] 6656  - 27/04/2025, 23:27:59   ERROR [MysqlDatabaseProvider] Error executing MySQL query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:27:59   ERROR [DatabaseService] Error executing SQL query: SQL syntax error in query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:27:59    WARN [AskService] Could not determine current user: SQL syntax error in query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [AskService] Connected as user:
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT DATABASE() as db_name
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [MysqlDatabaseProvider] Executing MySQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 0
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [AskService] Found 0 non-system schemas: 
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 6656  - 27/04/2025, 23:27:59     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [AskService] Generated 1 SQL queries
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [AskService] Query 1: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [AskService] Executing SQL queries...
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [AskService] Executing query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100        
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [DatabaseService] Executing SQL query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 4
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [AskService] Generating summary of results...
+[Nest] 6656  - 27/04/2025, 23:28:01     LOG [OpenaiService] Generating summary of query results
+[Nest] 6656  - 27/04/2025, 23:28:02     LOG [AskService] Generating suggested follow-up prompts...
+[Nest] 6656  - 27/04/2025, 23:28:02     LOG [OpenaiService] Generating suggested follow-up prompts
+[Nest] 6656  - 27/04/2025, 23:28:03     LOG [MysqlDatabaseProvider] MySQL connection closed successfully
+[Nest] 6656  - 27/04/2025, 23:28:03     LOG [DatabaseService] Database connection closed successfully
+[Nest] 6656  - 27/04/2025, 23:28:03     LOG [AskService] Database connection closed
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [AskController] Processing natural language query: What tables are available in the mysql schema?
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [AskService] Connecting to mysql database...
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [DatabaseService] Connecting to database: Monitdb@monitdb-dev.ddns.net
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [DatabaseService] Detected database type: mysql
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [DatabaseFactoryService] Creating database provider for type: mysql
+[Nest] 6656  - 27/04/2025, 23:29:32     LOG [MysqlDatabaseProvider] Connecting to MySQL database: monitdb-dev.ddns.net:3306/sys
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] ✓ MySQL connection successful
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [DatabaseService] Connected successfully to mysql database: Monitdb@monitdb-dev.ddns.net
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [AskService] Connected to database successfully
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [AskService] User specified schema to focus on: mysql
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [DatabaseService] Executing SQL query: SELECT CURRENT_USER() AS current_user
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT CURRENT_USER() AS current_user
+[Nest] 6656  - 27/04/2025, 23:29:33   ERROR [MysqlDatabaseProvider] Error executing MySQL query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:29:33   ERROR [DatabaseService] Error executing SQL query: SQL syntax error in query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:29:33    WARN [AskService] Could not determine current user: SQL syntax error in query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_user' at line 1
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [AskService] Connected as user:
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT DATABASE() as db_name
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 6656  - 27/04/2025, 23:29:33     LOG [MysqlDatabaseProvider] Executing MySQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 6656  - 27/04/2025, 23:29:34     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 0
+[Nest] 6656  - 27/04/2025, 23:29:34     LOG [AskService] Found 0 non-system schemas: 
+[Nest] 6656  - 27/04/2025, 23:29:34    WARN [AskService] User-specified schema 'mysql' not found, falling back to automatic schema detection
+[Nest] 6656  - 27/04/2025, 23:29:34     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 6656  - 27/04/2025, 23:29:34     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 6656  - 27/04/2025, 23:29:34     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [AskService] Generated 1 SQL queries
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [AskService] Query 1: SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql'
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [AskService] Executing SQL queries...
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [AskService] Executing query: SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql'
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql'
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql'
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 38
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [AskService] Generating summary of results...
+[Nest] 6656  - 27/04/2025, 23:29:35     LOG [OpenaiService] Generating summary of query results
+[Nest] 6656  - 27/04/2025, 23:29:38     LOG [AskService] Generating suggested follow-up prompts...
+[Nest] 6656  - 27/04/2025, 23:29:38     LOG [OpenaiService] Generating suggested follow-up prompts
+[Nest] 6656  - 27/04/2025, 23:29:39     LOG [MysqlDatabaseProvider] MySQL connection closed successfully
+[Nest] 6656  - 27/04/2025, 23:29:39     LOG [DatabaseService] Database connection closed successfully
+[Nest] 6656  - 27/04/2025, 23:29:39     LOG [AskService] Database connection closed

@@ -1,0 +1,47 @@
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [AskController] Processing natural language query: Show me list of schemas available
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [AskService] Connecting to mysql database...
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [DatabaseService] Connecting to database: Monitdb@monitdb-dev.ddns.net
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [DatabaseService] Detected database type: mysql
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [DatabaseFactoryService] Creating database provider for type: mysql
+[Nest] 34688  - 27/04/2025, 23:48:25     LOG [MysqlDatabaseProvider] Connecting to MySQL database: monitdb-dev.ddns.net:3306/sys
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [MysqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [MysqlDatabaseProvider] ✓ MySQL connection successful
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [DatabaseService] Connected successfully to mysql database: Monitdb@monitdb-dev.ddns.net
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [AskService] Connected to database successfully
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [DatabaseService] Executing SQL query: SELECT USER() AS user
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT USER() AS user
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [AskService] Successfully retrieved MySQL user with query: SELECT USER() AS user
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [AskService] Connected as user: Monitdb@177.37.151.93
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 34688  - 27/04/2025, 23:48:27     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT DATABASE() as db_name
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [MysqlDatabaseProvider] Executing MySQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 0
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [AskService] Found 0 non-system schemas: 
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [DatabaseService] Executing SQL query: SHOW TABLES FROM `Monitdb@177.37.151.93`
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [MysqlDatabaseProvider] Executing MySQL query: SHOW TABLES FROM `Monitdb@177.37.151.93`
+[Nest] 34688  - 27/04/2025, 23:48:28   ERROR [MysqlDatabaseProvider] Error executing MySQL query: Unknown database 'Monitdb@177.37.151.93'
+[Nest] 34688  - 27/04/2025, 23:48:28   ERROR [DatabaseService] Error executing SQL query: MySQL query execution failed: Unknown database 'Monitdb@177.37.151.93'. Error code: ER_BAD_DB_ERROR
+[Nest] 34688  - 27/04/2025, 23:48:28   ERROR [AskService] Error processing schema Monitdb@177.37.151.93: MySQL query execution failed: Unknown database 'Monitdb@177.37.151.93'. Error code: ER_BAD_DB_ERROR
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 34688  - 27/04/2025, 23:48:28     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [AskService] Generated 1 SQL queries
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [AskService] Query 1: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [AskService] Executing SQL queries...
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [AskService] Executing query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100       
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [DatabaseService] Executing SQL query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [MysqlDatabaseProvider] Executing MySQL query: SELECT SCHEMA_NAME AS `Schema Name` FROM information_schema.SCHEMATA LIMIT 100
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [MysqlDatabaseProvider] Query executed successfully, rows returned: 4
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [AskService] Generating summary of results...
+[Nest] 34688  - 27/04/2025, 23:48:30     LOG [OpenaiService] Generating summary of query results
+[Nest] 34688  - 27/04/2025, 23:48:31     LOG [AskService] Generating suggested follow-up prompts...
+[Nest] 34688  - 27/04/2025, 23:48:31     LOG [OpenaiService] Generating suggested follow-up prompts
+[Nest] 34688  - 27/04/2025, 23:48:32     LOG [MysqlDatabaseProvider] MySQL connection closed successfully
+[Nest] 34688  - 27/04/2025, 23:48:32     LOG [DatabaseService] Database connection closed successfully
+[Nest] 34688  - 27/04/2025, 23:48:32     LOG [AskService] Database connection closed

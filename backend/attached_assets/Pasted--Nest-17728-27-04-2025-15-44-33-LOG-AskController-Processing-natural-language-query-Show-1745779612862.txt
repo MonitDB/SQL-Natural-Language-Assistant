@@ -1,0 +1,51 @@
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [AskController] Processing natural language query: Show me list of tables available
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [AskService] Connecting to postgres database...
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [DatabaseService] Connecting to database: teste@monitdb-dev.ddns.net
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [DatabaseService] Detected database type: postgres
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [DatabaseFactoryService] Creating database provider for type: postgres
+[Nest] 17728  - 27/04/2025, 15:44:33     LOG [PostgresDatabaseProvider] Connecting to PostgreSQL database: monitdb-dev.ddns.net:5432/postgres
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] Testing connection with a simple query...
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] ✓ PostgreSQL connection successful
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [DatabaseService] Connected successfully to postgres database: teste@monitdb-dev.ddns.net
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [AskService] Connected to database successfully
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [DatabaseService] Executing SQL query: SELECT current_user AS current_user
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] Executing PostgreSQL query: SELECT current_user AS current_user
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [AskService] Connected as user: teste
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [DatabaseService] Executing SQL query: SELECT DISTINCT owner FROM all_tables
+            WHERE owner NOT IN ('SYS', 'SYSTEM', 'MDSYS', 'CTXSYS', 'DBSNMP', 'OUTLN', 'XDB', 'APEX_040200', 'WMSYS')
+            ORDER BY owner
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] Executing PostgreSQL query: SELECT DISTINCT owner FROM all_tables
+            WHERE owner NOT IN ('SYS', 'SYSTEM', 'MDSYS', 'CTXSYS', 'DBSNMP', 'OUTLN', 'XDB', 'APEX_040200', 'WMSYS')
+            ORDER BY owner
+[Nest] 17728  - 27/04/2025, 15:44:34   ERROR [PostgresDatabaseProvider] Error executing PostgreSQL query: relation "all_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:34   ERROR [DatabaseService] Error executing SQL query: Table or view does not exist: relation "all_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:34    WARN [AskService] Error detecting schemas: Table or view does not exist: relation "all_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM all_tables
+              WHERE owner = 'teste'
+              ORDER BY table_name
+[Nest] 17728  - 27/04/2025, 15:44:34     LOG [PostgresDatabaseProvider] Executing PostgreSQL query: SELECT table_name FROM all_tables
+              WHERE owner = 'teste'
+              ORDER BY table_name
+[Nest] 17728  - 27/04/2025, 15:44:35   ERROR [PostgresDatabaseProvider] Error executing PostgreSQL query: relation "all_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:35   ERROR [DatabaseService] Error executing SQL query: Table or view does not exist: relation "all_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:35   ERROR [AskService] Error processing schema teste: Table or view does not exist: relation "all_tables" does not exist     
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Generated 1 SQL queries
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Query 1: SELECT table_name FROM user_tables
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Executing SQL queries...
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [AskService] Executing query: SELECT table_name FROM user_tables
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM user_tables
+[Nest] 17728  - 27/04/2025, 15:44:35     LOG [PostgresDatabaseProvider] Executing PostgreSQL query: SELECT table_name FROM user_tables
+[Nest] 17728  - 27/04/2025, 15:44:36   ERROR [PostgresDatabaseProvider] Error executing PostgreSQL query: relation "user_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:36   ERROR [DatabaseService] Error executing SQL query: Table or view does not exist: relation "user_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:36   ERROR [AskService] Error processing natural language query: Table or view does not exist: relation "user_tables" does not exist
+[Nest] 17728  - 27/04/2025, 15:44:36     LOG [PostgresDatabaseProvider] PostgreSQL connection closed successfully
+[Nest] 17728  - 27/04/2025, 15:44:36     LOG [DatabaseService] Database connection closed successfully
+[Nest] 17728  - 27/04/2025, 15:44:36     LOG [AskService] Database connection closed
+[Nest] 17728  - 27/04/2025, 15:44:36   ERROR [AskController] Error processing ask request: Table or view does not exist: relation "user_tables" does not exist  

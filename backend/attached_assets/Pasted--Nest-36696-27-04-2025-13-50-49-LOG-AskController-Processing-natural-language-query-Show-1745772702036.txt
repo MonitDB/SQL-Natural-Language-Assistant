@@ -1,0 +1,63 @@
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [AskController] Processing natural language query: Show me list of tables available
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [AskService] Connecting to mssql database...
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [DatabaseService] Connecting to database: monitdb@monitdb-dev.ddns.net
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [DatabaseService] Detected database type: mssql
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [DatabaseFactoryService] Creating database provider for type: mssql
+[Nest] 36696  - 27/04/2025, 13:50:49     LOG [MssqlDatabaseProvider] Connecting to SQL Server database: monitdb-dev.ddns.net:1433/MonitorizacaoAtiva
+[Nest] 36696  - 27/04/2025, 13:50:50     LOG [MssqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [MssqlDatabaseProvider] ✓ SQL Server connection successful
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [DatabaseService] Connected successfully to mssql database: monitdb@monitdb-dev.ddns.net
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [AskService] Connected to database successfully
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [DatabaseService] Executing SQL query: SELECT CURRENT_USER AS current_user
+[Nest] 36696  - 27/04/2025, 13:50:51     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT CURRENT_USER AS current_user
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'current_user'.
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'current_user'.
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [DatabaseService] Executing SQL query: SELECT SYSTEM_USER AS current_user
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT SYSTEM_USER AS current_user
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'current_user'.
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'current_user'.
+[Nest] 36696  - 27/04/2025, 13:50:52    WARN [AskService] Could not get SQL Server user: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'current_user'.
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [AskService] Connected as user:
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT DATABASE() as db_name
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 36696  - 27/04/2025, 13:50:52    WARN [AskService] Could not get MySQL database name: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [MssqlDatabaseProvider] Executing SQL Server query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 36696  - 27/04/2025, 13:50:52   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 36696  - 27/04/2025, 13:50:52    WARN [AskService] Error detecting schemas: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 36696  - 27/04/2025, 13:50:52     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 36696  - 27/04/2025, 13:50:54    WARN [OpenaiService] Detected "SHOW TABLES" command, converting to database-specific query
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [AskService] Generated 1 SQL queries
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [AskService] Query 1: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [AskService] Executing SQL queries...
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [AskService] Executing query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [DatabaseService] Executing SQL query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name   
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [MssqlDatabaseProvider] Query executed successfully, rows returned: 115
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [AskService] Generating summary of results...
+[Nest] 36696  - 27/04/2025, 13:50:54     LOG [OpenaiService] Generating summary of query results
+[Nest] 36696  - 27/04/2025, 13:50:57     LOG [AskService] Generating suggested follow-up prompts...
+[Nest] 36696  - 27/04/2025, 13:50:57     LOG [OpenaiService] Generating suggested follow-up prompts
+[Nest] 36696  - 27/04/2025, 13:50:58     LOG [MssqlDatabaseProvider] SQL Server connection closed successfully
+[Nest] 36696  - 27/04/2025, 13:50:58     LOG [DatabaseService] Database connection closed successfully
+[Nest] 36696  - 27/04/2025, 13:50:58     LOG [AskService] Database connection closed

@@ -1,0 +1,132 @@
+[
+  [],
+  [
+    {
+      "Host": "background",
+      "IOs": "1723",
+      "IOLatency": "2.52 s"
+    },
+    {
+      "Host": "localhost",
+      "IOs": "8",
+      "IOLatency": "57.05 ms"
+    },
+    {
+      "Host": "unifi.localdomain",
+      "IOs": "25",
+      "IOLatency": "85.98 us"
+    },
+    {
+      "Host": "177.37.151.93",
+      "IOs": "1",
+      "IOLatency": "9.79 us"
+    }
+  ],
+  [
+    {
+      "Host": "177.37.151.93",
+      "EventName": "wait/io/file/innodb/innodb_data_file",
+      "Total": 1,
+      "TotalLatency": "9.79 us",
+      "MaxLatency": "9.79 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/innodb/innodb_log_file",
+      "Total": 330,
+      "TotalLatency": "1.18 s",
+      "MaxLatency": "34.54 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/innodb/innodb_data_file",
+      "Total": 1197,
+      "TotalLatency": "593.80 ms",
+      "MaxLatency": "41.24 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/innodb/innodb_dblwr_file",
+      "Total": 82,
+      "TotalLatency": "481.83 ms",
+      "MaxLatency": "19.08 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/innodb/innodb_temp_file",
+      "Total": 52,
+      "TotalLatency": "196.39 ms",
+      "MaxLatency": "24.73 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/binlog",
+      "Total": 6,
+      "TotalLatency": "43.57 ms",
+      "MaxLatency": "24.85 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/binlog_index",
+      "Total": 20,
+      "TotalLatency": "30.55 ms",
+      "MaxLatency": "18.50 ms"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/casetest",
+      "Total": 15,
+      "TotalLatency": "794.59 us",
+      "MaxLatency": "711.91 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/ERRMSG",
+      "Total": 5,
+      "TotalLatency": "103.74 us",
+      "MaxLatency": "83.92 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/pid",
+      "Total": 3,
+      "TotalLatency": "22.23 us",
+      "MaxLatency": "15.04 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/mysys/cnf",
+      "Total": 5,
+      "TotalLatency": "12.48 us",
+      "MaxLatency": "6.18 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/mysys/charset",
+      "Total": 3,
+      "TotalLatency": "12.25 us",
+      "MaxLatency": "6.26 us"
+    },
+    {
+      "Host": "background",
+      "EventName": "wait/io/file/sql/misc",
+      "Total": 5,
+      "TotalLatency": "11.39 us",
+      "MaxLatency": "2.94 us"
+    },
+    {
+      "Host": "localhost",
+      "EventName": "wait/io/file/sql/binlog",
+      "Total": 8,
+      "TotalLatency": "57.05 ms",
+      "MaxLatency": "16.91 ms"
+    },
+    {
+      "Host": "unifi.localdomain",
+      "EventName": "wait/io/file/innodb/innodb_data_file",
+      "Total": 25,
+      "TotalLatency": "85.98 us",
+      "MaxLatency": "23.83 us"
+    }
+  ]
+]

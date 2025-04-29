@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Query Assistant</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <style>
+        :root {
+          /* Modern color scheme */
+          --primary-color: #4361ee;
+          --primary-light: #4895ef;
+          --primary-dark: #3f37c9;
+          --secondary-color: #4cc9f0;
+          --accent-color: #7b2cbf;
+          --accent-light: #9d4edd;
+          --success-color: #0cce6b;
+          --warning-color: #fca311;
+          --error-color: #e63946;
+          
+          /* Dark theme */
+          --bg-dark: #0f172a;
+          --bg-darker: #0a0f1c;
+          --surface-dark: #1e293b;
+          --surface-darker: #172033;
+          --border-dark: #334155;
+          --text-primary: rgba(255, 255, 255, 0.92);
+          --text-secondary: rgba(255, 255, 255, 0.7);
+          --text-muted: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Animations and transitions */
+        @keyframes gradient-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes floating {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+          0% { opacity: 0.6; }
+          50% { opacity: 1; }
+          100% { opacity: 0.6; }
+        }
+        
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          background-color: var(--bg-dark);
+          color: var(--text-primary);
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+          overflow-x: hidden;
+          transition: background-color 0.3s ease;
+        }
+        
+        /* Modernized header with gradient */
+        .app {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          position: relative;
+        }
+        
+        .header {
+          background: linear-gradient(135deg, var(--primary-dark), var(--primary-color), var(--secondary-color));
+          background-size: 200% 200%;
+          animation: gradient-shift 15s ease infinite;
+          padding: 1.5rem 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+          z-index: 10;
+        }
+        
+        .header h1 {
+          color: white;
+          margin: 0;
+          font-size: 1.8rem;
+          font-weight: 700;
+          letter-spacing: -0.5px;
+          display: flex;
+          align-items: center;
+        }
+        
+        .header h1::before {
+          content: "";
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          margin-right: 10px;
+          background: rgba(255, 255, 255, 0.9);
+          border-radius: 50%;
+        }
+        
+        .header-subtitle {
+          color: rgba(255, 255, 255, 0.85);
+          font-weight: 400;
+          margin-left: auto;
+          padding-left: 24px;
+        }
+        
+        .content {
+          padding: 2rem;
+          flex: 1;
+          background: var(--bg-dark) url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233f37c9' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E") center/cover;
+        }
+        
+        .row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+        
+        .col {
+          flex: 1;
+          min-width: 300px;
+        }
+        
+        .col:first-child {
+          flex: 0 0 320px;
+        }
+        
+        .card {
+          background-color: var(--surface-dark);
+          border-radius: 12px;
+          box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+          padding: 1.5rem;
+          margin-bottom: 1.5rem;
+          border: 1px solid var(--border-dark);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card-title {
+          margin-top: 0;
+          margin-bottom: 1.2rem;
+          color: var(--text-primary);
+          font-size: 1.25rem;
+          font-weight: 600;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: relative;
+        }
+        
+        .card-title::after {
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 50px;
+          height: 3px;
+          background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+          border-radius: 3px;
+        }
+        
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+        
+        .form-label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+        
+        .form-control {
+          width: 100%;
+          padding: 0.8rem 1rem;
+          background-color: var(--surface-darker);
+          border: 1px solid var(--border-dark);
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 0.95rem;
+          transition: all 0.2s ease;
+        }
+        
+        .form-control:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .form-select {
+          width: 100%;
+          padding: 0.8rem 1rem;
+          background-color: var(--surface-darker);
+          border: 1px solid var(--border-dark);
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 0.95rem;
+          transition: all 0.2s ease;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 1rem center;
+          background-size: 10px;
+        }
+        
+        .form-select:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+          padding: 0.8rem 1.5rem;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          font-size: 0.95rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 5px;
+          height: 5px;
+          background: rgba(255, 255, 255, 0.3);
+          opacity: 0;
+          border-radius: 100%;
+          transform: scale(1, 1) translate(-50%);
+          transform-origin: 50% 50%;
+        }
+        
+        .btn:focus:not(:active)::after {
+          animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+          0% {
+            transform: scale(0, 0);
+            opacity: 0.5;
+          }
+          20% {
+            transform: scale(25, 25);
+            opacity: 0.3;
+          }
+          100% {
+            opacity: 0;
+            transform: scale(40, 40);
+          }
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+          color: white;
+        }
+        
+        .btn-primary:hover {
+          background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+          transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+          background-color: var(--surface-darker);
+          color: var(--text-primary);
+          border: 1px solid var(--border-dark);
+        }
+        
+        .btn-secondary:hover {
+          background-color: var(--border-dark);
+          transform: translateY(-2px);
+        }
+        
+        .btn-sm {
+          padding: 0.5rem 1rem;
+          font-size: 0.85rem;
+        }
+        
+        .btn-icon {
+          margin-right: 0.5rem;
+        }
+        
+        /* Loading animation with spinner and progress bar */
+        .loading-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(10, 15, 28, 0.8);
+          z-index: 1000;
+          backdrop-filter: blur(5px);
+        }
+        
+        .spinner {
+          width: 40px;
+          height: 40px;
+          margin: 0 auto 1.5rem auto;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: var(--primary-color);
+          animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        
+        .progress-container {
+          width: 250px;
+          height: 6px;
+          background-color: var(--surface-darker);
+          border-radius: 6px;
+          margin: 1rem 0;
+          overflow: hidden;
+        }
+        
+        .progress-bar {
+          height: 100%;
+          width: 0;
+          background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+          border-radius: 6px;
+        }
+        
+        .loading-text {
+          margin-top: 1rem;
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+        }
+        
+        /* For code blocks and query results */
+        .code-block {
+          background-color: var(--surface-darker);
+          padding: 1rem;
+          border-radius: 8px;
+          font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+          white-space: pre-wrap;
+          word-break: break-word;
+          font-size: 0.9rem;
+          color: #e4e4e4;
+          margin: 0.5rem 0 1rem;
+          border: 1px solid var(--border-dark);
+          max-height: 350px;
+          overflow-y: auto;
+        }
+        
+        .query-card {
+          background-color: var(--surface-darker);
+          padding: 1rem;
+          border-radius: 8px;
+          margin: 0.5rem 0 1rem;
+          border-left: 3px solid var(--primary-color);
+        }
+        
+        .query-card-title {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          margin-bottom: 0.5rem;
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        .query-card-content {
+          color: var(--text-primary);
+          font-size: 0.95rem;
+        }
+        
+        .results-container {
+          background-color: var(--surface-dark);
+          border-radius: 12px;
+          padding: 1rem;
+          margin-top: 1rem;
+        }
+        
+        .results-scroll {
+          max-height: 400px;
+          overflow-y: auto;
+          padding-right: 0.5rem;
+        }
+        
+        .results-scroll::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .results-scroll::-webkit-scrollbar-track {
+          background: var(--surface-darker);
+          border-radius: 6px;
+        }
+        
+        .results-scroll::-webkit-scrollbar-thumb {
+          background: var(--border-dark);
+          border-radius: 6px;
+        }
+        
+        .results-scroll::-webkit-scrollbar-thumb:hover {
+          background: var(--primary-dark);
+        }
+        
+        .table-container {
+          overflow-x: auto;
+          margin: 1rem 0;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+        
+        thead {
+          background-color: var(--surface-darker);
+        }
+        
+        th {
+          text-align: left;
+          font-weight: 600;
+          padding: 0.75rem 1rem;
+          color: var(--text-secondary);
+          border-bottom: 1px solid var(--border-dark);
+        }
+        
+        td {
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid var(--border-dark);
+          color: var(--text-primary);
+        }
+        
+        tbody tr:hover {
+          background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .null-value {
+          color: var(--text-muted);
+          font-style: italic;
+        }
+        
+        .suggestions-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        }
+        
+        .suggestion-chip {
+          background-color: var(--surface-darker);
+          color: var(--text-secondary);
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: 1px solid var(--border-dark);
+        }
+        
+        .suggestion-chip:hover {
+          background-color: var(--primary-dark);
+          color: white;
+          transform: translateY(-2px);
+        }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1>Database Query Assistant</h1>
+        <span class="header-subtitle">AI-Powered SQL Generation</span>
+      </header>
+      
+      <main class="content">
+        <div class="row">
+          <div class="col">
+            <div class="card" id="connection-card">
+              <h2 class="card-title">Database Connection</h2>
+              <form id="connection-form">
+                <div class="form-group">
+                  <label for="db-type" class="form-label">Database Type</label>
+                  <select id="db-type" class="form-select" required>
+                    <option value="oracle">Oracle</option>
+                    <option value="postgres">PostgreSQL</option>
+                    <option value="mysql">MySQL</option>
+                    <option value="mssql">SQL Server</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" id="username" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" id="password" class="form-control" required>
+                </div>
+                
+                <div id="connectionString-container" class="form-group">
+                  <label for="connectionString" class="form-label">Connection String (Oracle)</label>
+                  <input type="text" id="connectionString" class="form-control">
+                </div>
+                
+                <div id="host-container" class="form-group" style="display: none;">
+                  <label for="host" class="form-label">Hostname</label>
+                  <input type="text" id="host" class="form-control">
+                </div>
+                
+                <div id="port-container" class="form-group" style="display: none;">
+                  <label for="port" class="form-label">Port</label>
+                  <input type="number" id="port" class="form-control">
+                </div>
+                
+                <div id="database-container" class="form-group" style="display: none;">
+                  <label for="database" class="form-label">Database Name</label>
+                  <input type="text" id="database" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="connect-btn">
+                  <span class="btn-icon">🔌</span> Connect
+                </button>
+              </form>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card" id="query-card">
+              <h2 class="card-title">Natural Language Query</h2>
+              <form id="query-form">
+                <div class="form-group">
+                  <label for="prompt" class="form-label">Ask a question about your database</label>
+                  <textarea id="prompt" class="form-control" rows="3" placeholder="For example: Show me the top 10 customers by order total" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submit-query" disabled>
+                  <span class="btn-icon">🔍</span> Submit Query
+                </button>
+              </form>
+              
+              <div class="suggestions-container" id="suggestions">
+                <!-- Suggestions will be populated here -->
+              </div>
+            </div>
+            
+            <div class="card" id="results-card" style="display: none;">
+              <h2 class="card-title">Query Results</h2>
+              <div id="results-content">
+                <!-- Results will go here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <div class="loading-container" id="loading-overlay" style="display: none;">
+      <div class="spinner"></div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="loading-text" id="loading-text">Processing your query...</div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const dbTypeSelect = document.getElementById('db-type');
+        const connectionStringContainer = document.getElementById('connectionString-container');
+        const hostContainer = document.getElementById('host-container');
+        const portContainer = document.getElementById('port-container');
+        const databaseContainer = document.getElementById('database-container');
+        const connectionForm = document.getElementById('connection-form');
+        const queryForm = document.getElementById('query-form');
+        const submitQueryBtn = document.getElementById('submit-query');
+        const resultsCard = document.getElementById('results-card');
+        const resultsContent = document.getElementById('results-content');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const progressBar = document.getElementById('progress-bar');
+        const loadingText = document.getElementById('loading-text');
+        const suggestionsContainer = document.getElementById('suggestions');
+        
+        let isConnected = false;
+        let suggestedPrompts = [];
+        
+        // Toggle connection fields based on database type
+        dbTypeSelect.addEventListener('change', function() {
+          const dbType = this.value;
+          
+          if (dbType === 'oracle') {
+            connectionStringContainer.style.display = 'block';
+            hostContainer.style.display = 'none';
+            portContainer.style.display = 'none';
+            databaseContainer.style.display = 'none';
+          } else {
+            connectionStringContainer.style.display = 'none';
+            hostContainer.style.display = 'block';
+            portContainer.style.display = 'block';
+            databaseContainer.style.display = 'block';
+            
+            // Set default ports
+            const portInput = document.getElementById('port');
+            switch (dbType) {
+              case 'postgres':
+                portInput.value = '5432';
+                break;
+              case 'mysql':
+                portInput.value = '3306';
+                break;
+              case 'mssql':
+                portInput.value = '1433';
+                break;
+            }
+          }
+        });
+        
+        // Handle connection form submission
+        connectionForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const connectionDetails = {
+            type: dbTypeSelect.value,
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+          };
+          
+          if (connectionDetails.type === 'oracle') {
+            connectionDetails.connectionString = document.getElementById('connectionString').value;
+          } else {
+            connectionDetails.host = document.getElementById('host').value;
+            connectionDetails.port = parseInt(document.getElementById('port').value);
+            connectionDetails.database = document.getElementById('database').value;
+          }
+          
+          // Show loading overlay
+          loadingOverlay.style.display = 'flex';
+          loadingText.textContent = 'Testing database connection...';
+          simulateProgressBar(50); // Simulate 50% of the progress for connection test
+          
+          try {
+            const response = await fetch('/ask', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                ...connectionDetails,
+                prompt: 'test connection'
+              }),
+            });
+            
+            const data = await response.json();
+            
+            if (data.result && !data.errorInfo) {
+              // Connection successful
+              isConnected = true;
+              submitQueryBtn.disabled = false;
+              
+              // Show success notification
+              alert('Connection successful!');
+              
+              // Load suggested prompts
+              await loadSuggestedPrompts();
+            } else {
+              // Connection failed
+              alert(`Connection failed: ${data.errorInfo?.message || 'Unknown error'}`);
+            }
+          } catch (error) {
+            console.error('Connection test error:', error);
+            alert(`Connection error: ${error.message || 'Unknown error'}`);
+          } finally {
+            // Hide loading overlay
+            loadingOverlay.style.display = 'none';
+          }
+        });
+        
+        // Load suggested prompts from API
+        async function loadSuggestedPrompts() {
+          try {
+            const response = await fetch('/ask/suggestions');
+            const data = await response.json();
+            
+            if (data.suggestedPrompts && Array.isArray(data.suggestedPrompts)) {
+              suggestedPrompts = data.suggestedPrompts;
+              renderSuggestions();
+            }
+          } catch (error) {
+            console.error('Error loading suggestions:', error);
+          }
+        }
+        
+        // Render suggestion chips
+        function renderSuggestions() {
+          suggestionsContainer.innerHTML = '';
+          
+          if (suggestedPrompts.length === 0) return;
+          
+          const heading = document.createElement('div');
+          heading.style.width = '100%';
+          heading.style.marginBottom = '0.5rem';
+          heading.style.color = 'var(--text-secondary)';
+          heading.style.fontSize = '0.9rem';
+          heading.textContent = 'Suggested Queries:';
+          suggestionsContainer.appendChild(heading);
+          
+          suggestedPrompts.forEach(prompt => {
+            const chip = document.createElement('div');
+            chip.classList.add('suggestion-chip');
+            chip.textContent = prompt;
+            chip.addEventListener('click', () => {
+              document.getElementById('prompt').value = prompt;
+            });
+            suggestionsContainer.appendChild(chip);
+          });
+        }
+        
+        // Handle query form submission
+        queryForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          if (!isConnected) {
+            alert('Please connect to a database first.');
+            return;
+          }
+          
+          const prompt = document.getElementById('prompt').value.trim();
+          if (!prompt) return;
+          
+          // Show loading overlay
+          loadingOverlay.style.display = 'flex';
+          loadingText.textContent = 'Processing your query...';
+          simulateProgressBar(100); // Full progress simulation
+          
+          // Collect connection details again
+          const connectionDetails = {
+            type: dbTypeSelect.value,
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+          };
+          
+          if (connectionDetails.type === 'oracle') {
+            connectionDetails.connectionString = document.getElementById('connectionString').value;
+          } else {
+            connectionDetails.host = document.getElementById('host').value;
+            connectionDetails.port = parseInt(document.getElementById('port').value);
+            connectionDetails.database = document.getElementById('database').value;
+          }
+          
+          try {
+            const response = await fetch('/ask', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                ...connectionDetails,
+                prompt: prompt
+              }),
+            });
+            
+            const data = await response.json();
+            
+            if (data.errorInfo) {
+              alert(`Query error: ${data.errorInfo.message}`);
+            } else {
+              // Display results
+              displayResults(data);
+              
+              // Update suggestions if available
+              if (data.suggestedPrompts && Array.isArray(data.suggestedPrompts)) {
+                suggestedPrompts = data.suggestedPrompts;
+                renderSuggestions();
+              }
+            }
+          } catch (error) {
+            console.error('Query error:', error);
+            alert(`Query error: ${error.message || 'Unknown error'}`);
+          } finally {
+            // Hide loading overlay
+            loadingOverlay.style.display = 'none';
+          }
+        });
+        
+        // Display query results
+        function displayResults(data) {
+          resultsContent.innerHTML = '';
+          
+          // Display the natural language summary
+          const resultText = document.createElement('div');
+          resultText.className = 'query-card';
+          resultText.innerHTML = `
+            <div class="query-card-title">Result</div>
+            <div class="query-card-content">${formatText(data.result)}</div>
+          `;
+          resultsContent.appendChild(resultText);
+          
+          // Display executed SQL queries
+          if (data.executedQueries && data.executedQueries.length > 0) {
+            const queriesHeading = document.createElement('h3');
+            queriesHeading.style.marginTop = '1.5rem';
+            queriesHeading.style.marginBottom = '0.5rem';
+            queriesHeading.textContent = 'Executed Queries';
+            resultsContent.appendChild(queriesHeading);
+            
+            data.executedQueries.forEach((query, index) => {
+              const queryBlock = document.createElement('div');
+              queryBlock.className = 'code-block';
+              queryBlock.textContent = query;
+              resultsContent.appendChild(queryBlock);
+            });
+          }
+          
+          // Display data tables from raw results
+          if (data.rawResults && data.rawResults.length > 0) {
+            const dataHeading = document.createElement('h3');
+            dataHeading.style.marginTop = '1.5rem';
+            dataHeading.style.marginBottom = '0.5rem';
+            dataHeading.textContent = 'Data Results';
+            resultsContent.appendChild(dataHeading);
+            
+            const resultsContainer = document.createElement('div');
+            resultsContainer.className = 'results-container';
+            
+            const scrollContainer = document.createElement('div');
+            scrollContainer.className = 'results-scroll';
+            
+            data.rawResults.forEach((resultSet, resultIndex) => {
+              if (Array.isArray(resultSet) && resultSet.length > 0) {
+                scrollContainer.appendChild(createTable(resultSet));
+              } else if (typeof resultSet === 'object' && resultSet !== null) {
+                const jsonBlock = document.createElement('div');
+                jsonBlock.className = 'code-block';
+                jsonBlock.textContent = JSON.stringify(resultSet, null, 2);
+                scrollContainer.appendChild(jsonBlock);
+              }
+            });
+            
+            resultsContainer.appendChild(scrollContainer);
+            resultsContent.appendChild(resultsContainer);
+          }
+          
+          resultsCard.style.display = 'block';
+          
+          // Scroll to results
+          resultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Create a table from result set
+        function createTable(data) {
+          if (!data || !data.length) return document.createElement('div');
+          
+          const tableContainer = document.createElement('div');
+          tableContainer.className = 'table-container';
+          
+          const table = document.createElement('table');
+          const thead = document.createElement('thead');
+          const tbody = document.createElement('tbody');
+          
+          // Create table headers
+          const headerRow = document.createElement('tr');
+          const firstRow = data[0];
+          
+          for (const key in firstRow) {
+            if (Object.prototype.hasOwnProperty.call(firstRow, key)) {
+              const th = document.createElement('th');
+              th.textContent = key;
+              headerRow.appendChild(th);
+            }
+          }
+          
+          thead.appendChild(headerRow);
+          
+          // Create table rows
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            
+            for (const key in firstRow) {
+              if (Object.prototype.hasOwnProperty.call(firstRow, key)) {
+                const td = document.createElement('td');
+                const value = row[key];
+                
+                if (value === null) {
+                  td.innerHTML = '<span class="null-value">NULL</span>';
+                } else if (typeof value === 'object') {
+                  td.textContent = JSON.stringify(value);
+                } else {
+                  td.textContent = value;
+                }
+                
+                tr.appendChild(td);
+              }
+            }
+            
+            tbody.appendChild(tr);
+          });
+          
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          tableContainer.appendChild(table);
+          
+          return tableContainer;
+        }
+        
+        // Format text with line breaks
+        function formatText(text) {
+          return text.replace(/\n/g, '<br>');
+        }
+        
+        // Simulate loading progress bar
+        function simulateProgressBar(targetPercent) {
+          const duration = 20000; // 20 seconds for full progress
+          const fps = 30;
+          const interval = 1000 / fps;
+          const steps = duration / interval;
+          
+          let progress = 0;
+          const increment = targetPercent / steps;
+          
+          progressBar.style.width = '0%';
+          
+          const progressInterval = setInterval(() => {
+            progress += increment;
+            
+            if (progress >= targetPercent) {
+              progress = targetPercent;
+              clearInterval(progressInterval);
+            }
+            
+            progressBar.style.width = `${progress}%`;
+            
+            // Update loading text for longer queries
+            if (targetPercent === 100) {
+              if (progress > 20 && progress <= 40) {
+                loadingText.textContent = 'Analyzing database schema...';
+              } else if (progress > 40 && progress <= 60) {
+                loadingText.textContent = 'Translating to SQL...';
+              } else if (progress > 60 && progress <= 80) {
+                loadingText.textContent = 'Executing queries...';
+              } else if (progress > 80) {
+                loadingText.textContent = 'Formatting results...';
+              }
+            }
+          }, interval);
+        }
+        
+        // Initial UI setup
+        dbTypeSelect.dispatchEvent(new Event('change'));
+      });
+    </script>
+  </body>
+</html>

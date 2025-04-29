@@ -1,0 +1,476 @@
+{
+	"result": "The database contains tables across four schemas: APPLICATION, dbo, HISTORIC, and SOLUTION. The APPLICATION schema has 13 tables, primarily related to API keys, customers, and versioning. The dbo schema includes a comprehensive set of 52 tables focusing on system alerts, checklists, logs, and SQL server monitoring. The HISTORIC schema consists of 19 tables, mainly dealing with various log metrics and performance statistics. Lastly, the SOLUTION schema hosts 27 tables, covering AI solutions, components, integrations, and server configurations.",
+	"executedQueries": [
+		"SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name \n              FROM INFORMATION_SCHEMA.TABLES \n              WHERE TABLE_TYPE = 'BASE TABLE' \n              ORDER BY TABLE_SCHEMA, TABLE_NAME"
+	],
+	"rawResults": [
+		[
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "APIKEY"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "CUSTOMER"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "ENVIRONMENTVARIABLE"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "GRANTS"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "LOGIN"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "PERMISSION"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "ROLE"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "TYPEGRANT"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "TYPEVERSION"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "TYPEVERSIONFILE"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "VERSION"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "VERSIONFILE"
+			},
+			{
+				"schema_name": "APPLICATION",
+				"table_name": "VERSIONINSTALATIONHISTORY"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Alert"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Alert_Cluster_Active_Node"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Alert_Customization"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Alert_Parameter"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Alert2"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Checklist_Alert"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Checklist_Alert_Sem_Clear"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Backup_Executed"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Changed_Jobs"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Conexao_Aberta"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Counters"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Counters_Email"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Data_Files"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Database_Auto_Growth"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Database_Growth"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Database_Growth_Email"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Database_Without_Backup"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Disk_Space"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_File_Reads"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_File_Writes"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Index_Fragmentation_History"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Jobs_Failed"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Jobs_Running"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Log_Files"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Opened_Connections_Email"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Parameter"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Profile_Queries"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Profile_Queries_LastDays"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Queries_Running"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Slow_Jobs"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_SQLServer_ErrorLog"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_SQLServer_LoginFailed"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_SQLServer_LoginFailed_Email"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Table_Growth"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Table_Growth_Email"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "CheckList_Waits_Stats"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "File_Utilization_History"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "HTML_Parameter"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Ignore_Databases"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Index_Fragmentation_History"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "LastSQLServerUpdates"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_Alert_Execution"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_Counter"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_DB_Error"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_DeadLock"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_IO_Pending"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Log_Whoisactive"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Queries_Profile"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "SQL_Counter"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "SqlServerVersions"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "SqlServerVersions_Old"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Status_Job_SQL_Agent"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Suspect_Pages_History"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "sysdiagrams"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Table_Size_History"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "User_Database"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "User_Server"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "User_Table"
+			},
+			{
+				"schema_name": "dbo",
+				"table_name": "Waits_Stats_History"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Historic_Parameter"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Average_Latch_Wait_Time"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Batch_Requests_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_CPU_Usage"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Database_Stats"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Disk_Size"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Error"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Executions_SP"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_File_Size"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Full_Scans_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Latch_Waits_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Lock_Timeouts_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Lock_Waits_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Memory_Usage"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Page_Life_Expectancy"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Page_Splits_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Processes"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_SQL_Compilations_Count"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Tempdb_Space_Use"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_Tempdb_Usage"
+			},
+			{
+				"schema_name": "HISTORIC",
+				"table_name": "Log_User_Connections_Count"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "AI_SOLUTION"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "AIANSWER"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "AIQUESTION"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "COMPONENT"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "COMPONENT_TYPESERVER"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "COMPONENTLOG"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "EXECUTIONLOG"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "FEATURE"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "FEATURE_old"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "FEATUREFUNCTION"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "INTEGRATION"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "INTEGRATION_AI"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "MONIT_AI_CHAT"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "MONIT_AI_MESSAGES"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "SERVER"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "SERVERDETAIL"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "SERVERIPS"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "SERVERSERVICE"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "TYPECOMPONENT"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "TYPESERVER"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "TYPESERVERCONECTION"
+			},
+			{
+				"schema_name": "SOLUTION",
+				"table_name": "TYPESERVERENVIRONMENT"
+			}
+		]
+	],
+	"suggestedPrompts": [
+		"Can you show me the columns and data types for the CUSTOMER table?",
+		"What are the total number of records in each table within the APPLICATION schema?",
+		"Are there any foreign key relationships involving the tables within the APPLICATION schema?"
+	],
+	"errorInfo": null
+}

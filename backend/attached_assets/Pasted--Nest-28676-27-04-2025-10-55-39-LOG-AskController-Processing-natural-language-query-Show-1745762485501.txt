@@ -1,0 +1,50 @@
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [AskController] Processing natural language query: Show me a broad overview of the database content
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [AskService] Connecting to mssql database...
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [DatabaseService] Connecting to database: MonitDB@monitdb-dev.ddns.net
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [DatabaseService] Detected database type: mssql
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [DatabaseFactoryService] Creating database provider for type: mssql
+[Nest] 28676  - 27/04/2025, 10:55:39     LOG [MssqlDatabaseProvider] Connecting to SQL Server database: monitdb-dev.ddns.net:1433/MonitorizacaoAtiva
+[Nest] 28676  - 27/04/2025, 10:55:40     LOG [MssqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [MssqlDatabaseProvider] ✓ SQL Server connection successful
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [DatabaseService] Connected successfully to mssql database: MonitDB@monitdb-dev.ddns.net
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [AskService] Connected to database successfully
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [DatabaseService] Executing SQL query: SELECT CURRENT_USER AS current_user
+[Nest] 28676  - 27/04/2025, 10:55:41     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT CURRENT_USER AS current_user
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'current_user'.
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'current_user'.
+[Nest] 28676  - 27/04/2025, 10:55:42    WARN [AskService] Could not determine current user: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'current_user'.
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [AskService] Connected as user: 
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT DATABASE() as db_name
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 28676  - 27/04/2025, 10:55:42    WARN [AskService] Could not get MySQL database name: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [DatabaseService] Executing SQL query: SELECT DISTINCT owner FROM all_tables
+        WHERE owner NOT IN ('SYS', 'SYSTEM', 'MDSYS', 'CTXSYS', 'DBSNMP', 'OUTLN', 'XDB', 'APEX_040200', 'WMSYS')
+        ORDER BY owner
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT DISTINCT owner FROM all_tables
+        WHERE owner NOT IN ('SYS', 'SYSTEM', 'MDSYS', 'CTXSYS', 'DBSNMP', 'OUTLN', 'XDB', 'APEX_040200', 'WMSYS')
+        ORDER BY owner
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Invalid object name 'all_tables'.
+[Nest] 28676  - 27/04/2025, 10:55:42   ERROR [DatabaseService] Error executing SQL query: Invalid object name. The specified table or view does not exist.
+[Nest] 28676  - 27/04/2025, 10:55:42    WARN [AskService] Error detecting schemas: Invalid object name. The specified table or view does not exist.
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 28676  - 27/04/2025, 10:55:42     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [OpenaiService] Generated 2 SQL queries from JSON response
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [AskService] Generated 2 SQL queries
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [AskService] Query 1: SELECT table_name, column_name, data_type FROM all_tab_columns WHERE owner = 'MONITORIZACAOATIVA' FETCH FIRST 100 ROWS ONLY
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [AskService] Query 2: SELECT table_name, num_rows FROM all_tables WHERE owner = 'MONITORIZACAOATIVA' FETCH FIRST 100 ROWS ONLY
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [AskService] Executing SQL queries...
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [AskService] Executing query: SELECT table_name, column_name, data_type FROM all_tab_columns WHERE owner = 'MONITORIZACAOATIVA' FETCH FIRST 100 ROWS ONLY
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [DatabaseService] Executing SQL query: SELECT table_name, column_name, data_type FROM all_tab_columns WHERE owner = 'MONITORIZACAOATIVA' FETCH FIRST 100 ROWS ONLY
+[Nest] 28676  - 27/04/2025, 10:55:43     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT table_name, column_name, data_type FROM all_tab_columns WHERE owner = 'MONITORIZACAOATIVA' FETCH FIRST 100 ROWS ONLY
+[Nest] 28676  - 27/04/2025, 10:55:44   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Invalid usage of the option FIRST in the FETCH statement.
+[Nest] 28676  - 27/04/2025, 10:55:44   ERROR [DatabaseService] Error executing SQL query: SQL Server query execution failed: Invalid usage of the option FIRST in the FETCH statement.. Error code: EREQUEST
+[Nest] 28676  - 27/04/2025, 10:55:44   ERROR [AskService] Error processing natural language query: SQL Server query execution failed: Invalid usage of the option FIRST in the FETCH statement.. Error code: EREQUEST
+[Nest] 28676  - 27/04/2025, 10:55:44     LOG [MssqlDatabaseProvider] SQL Server connection closed successfully
+[Nest] 28676  - 27/04/2025, 10:55:44     LOG [DatabaseService] Database connection closed successfully
+[Nest] 28676  - 27/04/2025, 10:55:44     LOG [AskService] Database connection closed
+[Nest] 28676  - 27/04/2025, 10:55:44   ERROR [AskController] Error processing ask request: SQL Server query execution failed: Invalid usage of the option FIRST in the FETCH statement.. Error code: EREQUEST

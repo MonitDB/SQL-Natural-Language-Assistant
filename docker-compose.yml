@@ -1,0 +1,29 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      - API_HOST_URL=http://backend:3000
+    command: ["npx", "vite", "preview", "--host", "0.0.0.0"]
+    networks:
+      - app-network
+    env_file:
+      - ./frontend/.env
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    env_file:
+      - ./backend/.env
+
+networks:
+  app-network:
+    driver: bridge

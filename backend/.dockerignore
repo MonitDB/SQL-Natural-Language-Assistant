@@ -1,0 +1,22 @@
+# Ignore node_modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignore build outputs
+dist
+build
+
+# Ignore Docker artifacts
+Dockerfile
+.dockerignore
+
+# Ignore IDE/editor folders
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Mac and Linux system files
+.DS_Store
+Thumbs.db

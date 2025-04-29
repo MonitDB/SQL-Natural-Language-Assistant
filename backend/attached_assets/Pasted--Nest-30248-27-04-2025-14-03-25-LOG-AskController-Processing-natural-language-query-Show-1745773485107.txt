@@ -1,0 +1,112 @@
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [AskController] Processing natural language query: Show me list of tables available
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [AskService] Connecting to mssql database...
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [DatabaseService] Connecting to database: monitdb@monitdb-dev.ddns.net
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [DatabaseService] Detected database type: mssql
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [DatabaseFactoryService] Creating database provider for type: mssql
+[Nest] 30248  - 27/04/2025, 14:03:25     LOG [MssqlDatabaseProvider] Connecting to SQL Server database: monitdb-dev.ddns.net:1433/MonitorizacaoAtiva
+[Nest] 30248  - 27/04/2025, 14:03:27     LOG [MssqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [MssqlDatabaseProvider] ✓ SQL Server connection successful
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [DatabaseService] Connected successfully to mssql database: monitdb@monitdb-dev.ddns.net
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [AskService] Connected to database successfully
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [DatabaseService] Executing SQL query: SELECT USER_NAME() user_name
+[Nest] 30248  - 27/04/2025, 14:03:28     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT USER_NAME() user_name
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [MssqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [AskService] Connected as user: dbo
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT DATABASE() as db_name
+[Nest] 30248  - 27/04/2025, 14:03:29   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:03:29   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:03:29    WARN [AskService] Could not get MySQL database name: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [MssqlDatabaseProvider] Executing SQL Server query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 30248  - 27/04/2025, 14:03:29   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:03:29   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:03:29    WARN [AskService] Error detecting schemas: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [DatabaseService] Executing SQL query: SHOW TABLES FROM `dbo`
+[Nest] 30248  - 27/04/2025, 14:03:29     LOG [MssqlDatabaseProvider] Executing SQL Server query: SHOW TABLES FROM `dbo`
+[Nest] 30248  - 27/04/2025, 14:03:30   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:03:30   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:03:30   ERROR [AskService] Error processing schema dbo: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:03:30     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 30248  - 27/04/2025, 14:03:30     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 30248  - 27/04/2025, 14:03:30     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 30248  - 27/04/2025, 14:03:31    WARN [OpenaiService] Detected "SHOW TABLES" command, converting to database-specific query
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [OpenaiService] Generated 1 SQL queries from JSON response
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [AskService] Generated 1 SQL queries
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [AskService] Query 1: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [AskService] Executing SQL queries...
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [AskService] Executing query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [DatabaseService] Executing SQL query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT TABLE_SCHEMA AS schema_name, TABLE_NAME AS table_name   
+              FROM INFORMATION_SCHEMA.TABLES
+              WHERE TABLE_TYPE = 'BASE TABLE'
+              ORDER BY TABLE_SCHEMA, TABLE_NAME
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [MssqlDatabaseProvider] Query executed successfully, rows returned: 115
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [AskService] Generating summary of results...
+[Nest] 30248  - 27/04/2025, 14:03:31     LOG [OpenaiService] Generating summary of query results
+[Nest] 30248  - 27/04/2025, 14:03:34     LOG [AskService] Generating suggested follow-up prompts...
+[Nest] 30248  - 27/04/2025, 14:03:34     LOG [OpenaiService] Generating suggested follow-up prompts
+[Nest] 30248  - 27/04/2025, 14:03:36     LOG [MssqlDatabaseProvider] SQL Server connection closed successfully
+[Nest] 30248  - 27/04/2025, 14:03:36     LOG [DatabaseService] Database connection closed successfully
+[Nest] 30248  - 27/04/2025, 14:03:36     LOG [AskService] Database connection closed
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [AskController] Processing natural language query: Can you show me a count of the records in each table within the APPLICATION schema?
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [AskService] Connecting to mssql database...
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [DatabaseService] Connecting to database: monitdb@monitdb-dev.ddns.net
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [DatabaseService] Detected database type: mssql
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [DatabaseFactoryService] Creating database provider for type: mssql
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [MssqlDatabaseProvider] Connecting to SQL Server database: monitdb-dev.ddns.net:1433/MonitorizacaoAtiva
+[Nest] 30248  - 27/04/2025, 14:03:59     LOG [MssqlDatabaseProvider] Testing connection with a simple query...
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [MssqlDatabaseProvider] ✓ SQL Server connection successful
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [DatabaseService] Connected successfully to mssql database: monitdb@monitdb-dev.ddns.net
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [AskService] Connected to database successfully
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [DatabaseService] Executing SQL query: SELECT USER_NAME() user_name
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT USER_NAME() user_name
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [MssqlDatabaseProvider] Query executed successfully, rows returned: 1
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [AskService] Connected as user: dbo
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [DatabaseService] Executing SQL query: SELECT DATABASE() as db_name
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT DATABASE() as db_name
+[Nest] 30248  - 27/04/2025, 14:04:01   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:04:01   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:04:01    WARN [AskService] Could not get MySQL database name: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'DATABASE'.
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [DatabaseService] Executing SQL query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 30248  - 27/04/2025, 14:04:01     LOG [MssqlDatabaseProvider] Executing SQL Server query: SHOW DATABASES WHERE `Database` NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')
+[Nest] 30248  - 27/04/2025, 14:04:02   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:04:02   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:04:02    WARN [AskService] Error detecting schemas: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'WHERE'.
+[Nest] 30248  - 27/04/2025, 14:04:02     LOG [DatabaseService] Executing SQL query: SHOW TABLES FROM `dbo`
+[Nest] 30248  - 27/04/2025, 14:04:02     LOG [MssqlDatabaseProvider] Executing SQL Server query: SHOW TABLES FROM `dbo`
+[Nest] 30248  - 27/04/2025, 14:04:02   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:04:02   ERROR [DatabaseService] Error executing SQL query: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:04:02   ERROR [AskService] Error processing schema dbo: SQL syntax error. Check the query syntax: Incorrect syntax near the keyword 'FROM'.
+[Nest] 30248  - 27/04/2025, 14:04:02     LOG [AskService] Scanned 0 schemas with 0 tables
+[Nest] 30248  - 27/04/2025, 14:04:02     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 30248  - 27/04/2025, 14:04:02     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [OpenaiService] Generated 3 SQL queries from JSON response
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Generated 3 SQL queries
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Query 1: SELECT 'table1' AS TableName, COUNT(*) AS RecordCount FROM table1
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Query 2: SELECT 'table2' AS TableName, COUNT(*) AS RecordCount FROM table2
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Query 3: SELECT 'table3' AS TableName, COUNT(*) AS RecordCount FROM table3
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Executing SQL queries...
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Executing query: SELECT 'table1' AS TableName, COUNT(*) AS RecordCount FROM table1
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [DatabaseService] Executing SQL query: SELECT 'table1' AS TableName, COUNT(*) AS RecordCount FROM table1
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [MssqlDatabaseProvider] Executing SQL Server query: SELECT 'table1' AS TableName, COUNT(*) AS RecordCount FROM table1
+[Nest] 30248  - 27/04/2025, 14:04:03   ERROR [MssqlDatabaseProvider] Error executing SQL Server query: Invalid object name 'table1'.
+[Nest] 30248  - 27/04/2025, 14:04:03   ERROR [DatabaseService] Error executing SQL query: Invalid object name. The specified table or view does not exist.
+[Nest] 30248  - 27/04/2025, 14:04:03   ERROR [AskService] Error processing natural language query: Invalid object name. The specified table or view does not exist.
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [MssqlDatabaseProvider] SQL Server connection closed successfully
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [DatabaseService] Database connection closed successfully
+[Nest] 30248  - 27/04/2025, 14:04:03     LOG [AskService] Database connection closed
+[Nest] 30248  - 27/04/2025, 14:04:03   ERROR [AskController] Error processing ask request: Invalid object name. The specified table or view does not exist.     

@@ -1,0 +1,332 @@
+Application is running on: http://0.0.0.0:3000
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [AskController] Processing natural language query: Show all data on the database
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [AskService] Connecting to Oracle database...
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Analyzing connection string: monitdb-dev.ddns.net:1521/orcl
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Connection string appears to be in EZ Connect format: monitdb-dev.ddns.net:1521/orcl
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Final connection string: monitdb-dev.ddns.net:1521/orcl
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Prepared 4 connection formats to try
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Trying connections with 5 second timeout
+[Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Attempting format: Primary Format with timeout: 5s
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [DatabaseService] ✓ Connection successful using Primary Format
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [DatabaseService] Executing SQL query: SELECT 1 AS TEST_CONNECTION FROM dual
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [DatabaseService] ✓ Connection test query success: [{"TEST_CONNECTION":1}]
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [AskService] Connected to database successfully
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [AskService] Starting efficient schema discovery and scanning...
+[Nest] 31252  - 27/04/2025, 00:11:56     LOG [DatabaseService] Executing SQL query: SELECT SYS_CONTEXT('USERENV', 'SESSION_USER') AS CURRENT_USER FROM dual     
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [AskService] Connected as user: MONITX
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Executing SQL query: SELECT SYS_CONTEXT('USERENV', 'DB_NAME') as DB_NAME FROM dual
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Executing SQL query: SELECT DISTINCT owner FROM all_tables
+        WHERE owner NOT IN ('SYS', 'SYSTEM', 'MDSYS', 'CTXSYS', 'DBSNMP', 'OUTLN', 'XDB', 'APEX_040200', 'WMSYS')
+        ORDER BY owner
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Query executed successfully, rows returned: 11
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [AskService] Found 11 non-system schemas: APPQOSSYS, AUDSYS, DBSFWUSER, DVSYS, GSMADMIN_INTERNAL, HR, LBACSYS, OJVMSYS, OLAPSYS, ORDDATA, ORDSYS
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM all_tables
+            WHERE owner = 'HR'
+            ORDER BY table_name
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Query executed successfully, rows returned: 7
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [AskService] Schema HR has 7 tables
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [AskService] Getting metadata for HR.COUNTRIES
+[Nest] 31252  - 27/04/2025, 00:11:57     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'HR' AND table_name = 'COUNTRIES'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Query executed successfully, rows returned: 3
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'COUNTRIES'
+              AND cons.owner = 'HR'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.COUNTRIES WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [AskService] Getting metadata for HR.DEPARTMENTS
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'HR' AND table_name = 'DEPARTMENTS'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Query executed successfully, rows returned: 4
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'DEPARTMENTS'
+              AND cons.owner = 'HR'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:58     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.DEPARTMENTS WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [AskService] Getting metadata for HR.EMPLOYEES
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'HR' AND table_name = 'EMPLOYEES'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Query executed successfully, rows returned: 11
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'EMPLOYEES'
+              AND cons.owner = 'HR'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.EMPLOYEES WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [AskService] Getting metadata for HR.JOB_HISTORY
+[Nest] 31252  - 27/04/2025, 00:11:59     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'HR' AND table_name = 'JOB_HISTORY'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'JOB_HISTORY'
+              AND cons.owner = 'HR'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Query executed successfully, rows returned: 2
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.JOB_HISTORY WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [AskService] Getting metadata for HR.JOBS
+[Nest] 31252  - 27/04/2025, 00:12:00     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'HR' AND table_name = 'JOBS'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Query executed successfully, rows returned: 4
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'JOBS'
+              AND cons.owner = 'HR'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.JOBS WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Executing SQL query: SELECT 
+                cons.table_name as table_name,
+                cols.column_name as column_name,
+                r_cons.table_name as r_table_name,
+                r_cols.column_name as r_column_name
+              FROM
+                all_constraints cons
+                JOIN all_cons_columns cols ON cons.constraint_name = cols.constraint_name AND cons.owner = cols.owner
+                JOIN all_constraints r_cons ON cons.r_constraint_name = r_cons.constraint_name AND cons.r_owner = r_cons.owner
+                JOIN all_cons_columns r_cols ON r_cons.constraint_name = r_cols.constraint_name AND r_cons.owner = r_cols.owner
+              WHERE
+                cons.constraint_type = 'R'
+                AND cons.owner = 'HR'
+                AND cons.table_name IN ('COUNTRIES','DEPARTMENTS','EMPLOYEES','JOB_HISTORY','JOBS')
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Query executed successfully, rows returned: 9
+[Nest] 31252  - 27/04/2025, 00:12:01     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM all_tables 
+            WHERE owner = 'APPQOSSYS'
+            ORDER BY table_name
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [AskService] Schema APPQOSSYS has 5 tables
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [AskService] Getting metadata for APPQOSSYS.WLM_CLASSIFIER_PLAN
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'APPQOSSYS' AND table_name = 'WLM_CLASSIFIER_PLAN'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Query executed successfully, rows returned: 7
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'WLM_CLASSIFIER_PLAN'
+              AND cons.owner = 'APPQOSSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_CLASSIFIER_PLAN WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [AskService] Getting metadata for APPQOSSYS.WLM_FEATURE_USAGE
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'APPQOSSYS' AND table_name = 'WLM_FEATURE_USAGE'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Query executed successfully, rows returned: 17
+[Nest] 31252  - 27/04/2025, 00:12:02     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'WLM_FEATURE_USAGE'
+              AND cons.owner = 'APPQOSSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_FEATURE_USAGE WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [AskService] Getting metadata for APPQOSSYS.WLM_METRICS_STREAM
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'APPQOSSYS' AND table_name = 'WLM_METRICS_STREAM'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Query executed successfully, rows returned: 3
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'WLM_METRICS_STREAM'
+              AND cons.owner = 'APPQOSSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_METRICS_STREAM WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [AskService] Getting metadata for APPQOSSYS.WLM_MPA_STREAM
+[Nest] 31252  - 27/04/2025, 00:12:03     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'APPQOSSYS' AND table_name = 'WLM_MPA_STREAM'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 3
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'WLM_MPA_STREAM'
+              AND cons.owner = 'APPQOSSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_MPA_STREAM WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [AskService] Getting metadata for APPQOSSYS.WLM_VIOLATION_STREAM
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'APPQOSSYS' AND table_name = 'WLM_VIOLATION_STREAM'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 3
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'WLM_VIOLATION_STREAM'
+              AND cons.owner = 'APPQOSSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_VIOLATION_STREAM WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:04     LOG [DatabaseService] Executing SQL query: SELECT 
+                cons.table_name as table_name,
+                cols.column_name as column_name,
+                r_cons.table_name as r_table_name,
+                r_cols.column_name as r_column_name
+              FROM
+                all_constraints cons
+                JOIN all_cons_columns cols ON cons.constraint_name = cols.constraint_name AND cons.owner = cols.owner
+                JOIN all_constraints r_cons ON cons.r_constraint_name = r_cons.constraint_name AND cons.r_owner = r_cons.owner
+                JOIN all_cons_columns r_cols ON r_cons.constraint_name = r_cols.constraint_name AND r_cons.owner = r_cols.owner
+              WHERE
+                cons.constraint_type = 'R'
+                AND cons.owner = 'APPQOSSYS'
+                AND cons.table_name IN ('WLM_CLASSIFIER_PLAN','WLM_FEATURE_USAGE','WLM_METRICS_STREAM','WLM_MPA_STREAM','WLM_VIOLATION_STREAM')
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Executing SQL query: SELECT table_name FROM all_tables 
+            WHERE owner = 'AUDSYS'
+            ORDER BY table_name
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Query executed successfully, rows returned: 1
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [AskService] Schema AUDSYS has 1 tables
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [AskService] Getting metadata for AUDSYS.AUD$UNIFIED
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Executing SQL query: SELECT column_name, data_type, data_length, nullable, column_id
+              FROM all_tab_columns
+              WHERE owner = 'AUDSYS' AND table_name = 'AUD$UNIFIED'
+              ORDER BY column_id
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Query executed successfully, rows returned: 100
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Results were limited to 100 rows
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Executing SQL query: SELECT cols.column_name
+              FROM all_constraints cons, all_cons_columns cols
+              WHERE cons.constraint_type = 'P'
+              AND cons.table_name = 'AUD$UNIFIED'
+              AND cons.owner = 'AUDSYS'
+              AND cons.constraint_name = cols.constraint_name
+              AND cons.owner = cols.owner
+              ORDER BY cols.position
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:05     LOG [DatabaseService] Executing SQL query: SELECT * FROM AUDSYS.AUD$UNIFIED WHERE ROWNUM <= 5
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [DatabaseService] Query executed successfully, rows returned: 5
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [DatabaseService] Executing SQL query: SELECT 
+                cons.table_name as table_name,
+                cols.column_name as column_name,
+                r_cons.table_name as r_table_name,
+                r_cols.column_name as r_column_name
+              FROM
+                all_constraints cons
+                JOIN all_cons_columns cols ON cons.constraint_name = cols.constraint_name AND cons.owner = cols.owner
+                JOIN all_constraints r_cons ON cons.r_constraint_name = r_cons.constraint_name AND cons.r_owner = r_cons.owner
+                JOIN all_cons_columns r_cols ON r_cons.constraint_name = r_cols.constraint_name AND r_cons.owner = r_cols.owner
+              WHERE
+                cons.constraint_type = 'R'
+                AND cons.owner = 'AUDSYS'
+                AND cons.table_name IN ('AUD$UNIFIED')
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [AskService] Scanned 3 schemas with 11 tables
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [AskService] Translating natural language to SQL using database schema information...
+[Nest] 31252  - 27/04/2025, 00:12:06     LOG [OpenaiService] Translating natural language to SQL with comprehensive schema analysis
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [OpenaiService] Received OpenAI response, extracting SQL queries
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [OpenaiService] Generated 11 SQL queries from JSON response
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Generated 11 SQL queries
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 1: SELECT * FROM AUDSYS.AUD$UNIFIED FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 2: SELECT * FROM HR.COUNTRIES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 3: SELECT * FROM HR.DEPARTMENTS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 4: SELECT * FROM HR.EMPLOYEES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 5: SELECT * FROM HR.JOB_HISTORY FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 6: SELECT * FROM HR.JOBS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 7: SELECT * FROM APPQOSSYS.WLM_CLASSIFIER_PLAN FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 8: SELECT * FROM APPQOSSYS.WLM_FEATURE_USAGE FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 9: SELECT * FROM APPQOSSYS.WLM_METRICS_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 10: SELECT * FROM APPQOSSYS.WLM_MPA_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Query 11: SELECT * FROM APPQOSSYS.WLM_VIOLATION_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Executing SQL queries...
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [AskService] Executing query: SELECT * FROM AUDSYS.AUD$UNIFIED FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:08     LOG [DatabaseService] Executing SQL query: SELECT * FROM AUDSYS.AUD$UNIFIED FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Query executed successfully, rows returned: 78
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [AskService] Executing query: SELECT * FROM HR.COUNTRIES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.COUNTRIES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Query executed successfully, rows returned: 25
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [AskService] Executing query: SELECT * FROM HR.DEPARTMENTS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.DEPARTMENTS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Query executed successfully, rows returned: 27
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [AskService] Executing query: SELECT * FROM HR.EMPLOYEES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.EMPLOYEES FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Query executed successfully, rows returned: 100
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Results were limited to 100 rows
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [AskService] Executing query: SELECT * FROM HR.JOB_HISTORY FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:09     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.JOB_HISTORY FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 10
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM HR.JOBS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM HR.JOBS FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 19
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM APPQOSSYS.WLM_CLASSIFIER_PLAN FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_CLASSIFIER_PLAN FETCH FIRST 100 ROWS ONLY       
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM APPQOSSYS.WLM_FEATURE_USAGE FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_FEATURE_USAGE FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM APPQOSSYS.WLM_METRICS_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_METRICS_STREAM FETCH FIRST 100 ROWS ONLY        
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM APPQOSSYS.WLM_MPA_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_MPA_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [AskService] Executing query: SELECT * FROM APPQOSSYS.WLM_VIOLATION_STREAM FETCH FIRST 100 ROWS ONLY
+[Nest] 31252  - 27/04/2025, 00:12:10     LOG [DatabaseService] Executing SQL query: SELECT * FROM APPQOSSYS.WLM_VIOLATION_STREAM FETCH FIRST 100 ROWS ONLY      
+[Nest] 31252  - 27/04/2025, 00:12:11     LOG [DatabaseService] Query executed successfully, rows returned: 0
+[Nest] 31252  - 27/04/2025, 00:12:11     LOG [AskService] Generating summary of results...
+[Nest] 31252  - 27/04/2025, 00:12:11     LOG [OpenaiService] Generating summary of query results
+[Nest] 31252  - 27/04/2025, 00:12:13   ERROR [OpenaiService] Error generating summary: 429 Request too large for gpt-4o in organization org-et35miyY5KdXY7duGBVzJiET on tokens per min (TPM): Limit 30000, Requested 119013. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.
+[Nest] 31252  - 27/04/2025, 00:12:13   ERROR [AskService] Error processing natural language query: 429 Request too large for gpt-4o in organization org-et35miyY5KdXY7duGBVzJiET on tokens per min (TPM): Limit 30000, Requested 119013. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.
+[Nest] 31252  - 27/04/2025, 00:12:14     LOG [DatabaseService] Oracle database connection closed successfully
+[Nest] 31252  - 27/04/2025, 00:12:14     LOG [AskService] Database connection closed
+[Nest] 31252  - 27/04/2025, 00:12:14   ERROR [AskController] Error processing ask request: 429 Request too large for gpt-4o in organization org-et35miyY5KdXY7duGBVzJiET on tokens per min (TPM): Limit 30000, Requested 119013. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.
