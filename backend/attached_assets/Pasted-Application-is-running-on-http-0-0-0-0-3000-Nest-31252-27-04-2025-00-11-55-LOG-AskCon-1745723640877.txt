@@ -1,4 +1,4 @@
-Application is running on: http://0.0.0.0:3000
+Application is running on: http://0.0.0.0:3005
 [Nest] 31252  - 27/04/2025, 00:11:55     LOG [AskController] Processing natural language query: Show all data on the database
 [Nest] 31252  - 27/04/2025, 00:11:55     LOG [AskService] Connecting to Oracle database...
 [Nest] 31252  - 27/04/2025, 00:11:55     LOG [DatabaseService] Analyzing connection string: monitdb-dev.ddns.net:1521/orcl

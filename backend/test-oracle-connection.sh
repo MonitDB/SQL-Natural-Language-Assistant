@@ -4,7 +4,7 @@
 echo "Testing Oracle connection with your monitx user..."
 
 # Use a longer timeout (120 seconds)
-curl --max-time 120 -X POST http://localhost:3000/ask \
+curl --max-time 120 -X POST http://localhost:3005/ask \
   -H "Content-Type: application/json" \
   -d '{
   "username": "monitx",

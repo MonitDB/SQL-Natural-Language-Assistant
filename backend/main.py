@@ -22,7 +22,7 @@ def start_nestjs():
         # Build and start the NestJS application
         os.system("npx @nestjs/cli build")
         
-        # Start the NestJS server with the port set to 3000
+        # Start the NestJS server with the port set to 3005
         nestjs_process = subprocess.Popen(
             "node dist/main.js",
             shell=True,
@@ -33,7 +33,7 @@ def start_nestjs():
         
         # Give the NestJS server time to start
         time.sleep(2)
-        print("NestJS server started on port 3000")
+        print("NestJS server started on port 3005")
         return True
     except Exception as e:
         print(f"Error starting NestJS server: {e}")
@@ -1479,7 +1479,7 @@ def root_index():
 @app.route('/ask/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 def proxy_to_nestjs(path):
     """Proxy API requests to the NestJS server"""
-    nestjs_url = f'http://0.0.0.0:3000/ask/{path}'
+    nestjs_url = f'http://0.0.0.0:3005/ask/{path}'
     
     # Forward the request method and body
     if request.method == 'OPTIONS':
@@ -1493,7 +1493,7 @@ def proxy_to_nestjs(path):
     # Forward the request
     try:
         if path == '':
-            nestjs_url = 'http://0.0.0.0:3000/ask'
+            nestjs_url = 'http://0.0.0.0:3005/ask'
         
         print(f"Proxying request to {nestjs_url}")
         

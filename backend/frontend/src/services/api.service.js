@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance with default config
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3005',
   timeout: 60000, // Longer timeout for complex database queries
   headers: {
     'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const apiService = {
    */
   async testConnection(connectionDetails) {
     try {
-      const response = await apiClient.post('/ask/test-connection', connectionDetails);
+      const response = await apiClient.post(`${API_HOST_URL}/ask/test-connection`, connectionDetails);
       return { 
         success: true, 
         message: 'Connection successful' 

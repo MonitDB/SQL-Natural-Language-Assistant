@@ -17,7 +17,7 @@ COPY . .
 RUN npx @nestjs/cli build
 
 # Expose backend port
-EXPOSE 3000
+EXPOSE 3005
 
 # Run the application
 CMD ["node", "dist/main.js"]

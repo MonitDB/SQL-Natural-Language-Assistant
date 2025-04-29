@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set test parameters 
-HOST="localhost:3000"
+HOST="localhost:3005"
 USERNAME="monitx"
 PASSWORD="teste"
 CONNSTRING="monitdb-dev.ddns.net:1521/orcl"

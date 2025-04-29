@@ -6,19 +6,21 @@ services:
     ports:
       - "4173:4173"
     environment:
-      - API_HOST_URL=http://backend:3000
+      - VITE_API_HOST_URL=http://backend:3005
     command: ["npx", "vite", "preview", "--host", "0.0.0.0"]
     networks:
       - app-network
     env_file:
-      - ./frontend/.env
+      - ./frontend/client/.env
+    depends_on:
+      - backend
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3005:3005"
     networks:
       - app-network
     env_file:

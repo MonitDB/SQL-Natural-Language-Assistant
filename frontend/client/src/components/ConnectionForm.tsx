@@ -80,9 +80,11 @@ export default function ConnectionForm({
         ...(formData.port && { port: Number(formData.port) }),
       };
 
+      const apiHostUrl = import.meta.env.VITE_API_HOST_URL;
+
       const res = await apiRequest(
         "POST",
-        "https://a24f-2804-29b8-50a6-6376-e858-1937-dc8a-4f6b.ngrok-free.app/ask/test-connection",
+        `${apiHostUrl}/ask/test-connection`,
         payload,
       );
       const data = await res.json();
@@ -125,9 +127,11 @@ export default function ConnectionForm({
         prompt: formData.prompt,
       };
 
+      const apiHostUrl = import.meta.env.VITE_API_HOST_URL;
+
       const res = await apiRequest(
         "POST",
-        "https://a24f-2804-29b8-50a6-6376-e858-1937-dc8a-4f6b.ngrok-free.app/ask",
+        `${apiHostUrl}/ask`,
         payload,
       );
       const data = await res.json();

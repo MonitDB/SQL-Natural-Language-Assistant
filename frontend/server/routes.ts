@@ -29,7 +29,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         // Connect to external API
         const apiResponse = await axios.post(
-          'https://7857-2804-29b8-50a6-6376-e858-1937-dc8a-4f6b.ngrok-free.app/ask/test-connection',
+          `${import.meta.env.VITE_API_HOST_URL}/ask/test-connection`,
           validatedData
         );
         
@@ -65,7 +65,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`Sending query to external API: "${validatedData.prompt}"`);
         
         const apiResponse = await axios.post(
-          'https://7857-2804-29b8-50a6-6376-e858-1937-dc8a-4f6b.ngrok-free.app/ask',
+          `${import.meta.env.VITE_API_HOST_URL}/ask`,
           validatedData
         );
         
