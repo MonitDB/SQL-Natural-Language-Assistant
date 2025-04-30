@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3001,
     proxy: {
       '/api': {
-        target: 'http://monitdb-dev.ddns.net:3005/',
+        target: 'http://monitdb-dev.ddns.net:3005',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

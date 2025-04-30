@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance with default config
 const apiClient = axios.create({
-  baseURL: 'http://monitdb-dev.ddns.net:3005/',
+  baseURL: 'http://monitdb-dev.ddns.net:3005',
   timeout: 60000, // Longer timeout for complex database queries
   headers: {
     'Content-Type': 'application/json',

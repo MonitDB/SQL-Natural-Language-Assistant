@@ -79,8 +79,8 @@ This API allows users to query databases using natural language. It uses the pow
    ```
 
 6. Access the application:
-   - API endpoints will be available at http://monitdb-dev.ddns.net:3005/
-   - Swagger documentation available at http://monitdb-dev.ddns.net:3005//api
+   - API endpoints will be available at http://monitdb-dev.ddns.net:3005
+   - Swagger documentation available at http://monitdb-dev.ddns.net:3005/api
    - If using Python wrapper, a web interface is available at http://localhost:5000
 
 ### Testing the API
@@ -89,7 +89,7 @@ You can test the API using curl:
 
 ```bash
 # Oracle example
-curl -X POST http://monitdb-dev.ddns.net:3005//ask \
+curl -X POST http://monitdb-dev.ddns.net:3005/ask \
   -H "Content-Type: application/json" \
   -d '{
     "username": "your_oracle_username",
@@ -100,7 +100,7 @@ curl -X POST http://monitdb-dev.ddns.net:3005//ask \
   }'
 
 # PostgreSQL example
-curl -X POST http://monitdb-dev.ddns.net:3005//ask \
+curl -X POST http://monitdb-dev.ddns.net:3005/ask \
   -H "Content-Type: application/json" \
   -d '{
     "username": "your_postgres_username",
@@ -113,7 +113,7 @@ curl -X POST http://monitdb-dev.ddns.net:3005//ask \
   }'
 ```
 
-Or use the Swagger UI at http://monitdb-dev.ddns.net:3005//api for interactive testing.
+Or use the Swagger UI at http://monitdb-dev.ddns.net:3005/api for interactive testing.
 
 ## API Endpoints
 
