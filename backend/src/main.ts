@@ -8,7 +8,7 @@ async function bootstrap() {
   
   // Enable CORS for all origins
   app.enableCors({
-    origin: true,
+    origin: "http://monitdb-dev.ddns.net:4173",
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
