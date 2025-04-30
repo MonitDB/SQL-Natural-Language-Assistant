@@ -5,7 +5,7 @@
 echo -e "\n=== Testing /ask endpoint with Oracle database ===\n"
 
 # Set variables
-API_URL="http://localhost:3005/ask"
+API_URL="http://backend:3005/ask"
 DB_HOST="monitdb-dev.ddns.net"
 DB_PORT="1521"
 DB_SERVICE="orcl"

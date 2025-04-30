@@ -4,11 +4,11 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_HOST_URL: http://localhost:3005
+        VITE_API_HOST_URL: http://backend:3005
     ports:
       - "4173:4173"
     environment:
-      - VITE_API_HOST_URL=http://localhost:3005
+      - VITE_API_HOST_URL=http://backend:3005
     command: ["npx", "vite", "preview", "--host", "0.0.0.0"]
     networks:
       - app-network
