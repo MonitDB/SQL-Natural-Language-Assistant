@@ -11,7 +11,7 @@ echo "----------------------------------------------"
 
 # Test health endpoint
 echo -e "\n${YELLOW}1. Testing health endpoint:${NC}"
-HEALTH_RESPONSE=$(curl -s http://backend:3005/health | jq .)
+HEALTH_RESPONSE=$(curl -s http://monitdb-dev.ddns.net:3005//health | jq .)
 echo "$HEALTH_RESPONSE"
 if [[ $(echo "$HEALTH_RESPONSE" | jq -r '.status') == "healthy" ]]; then
   echo -e "${GREEN}✓ Health check passed${NC}"
@@ -37,7 +37,7 @@ cat /tmp/sample-request.json | jq .
 
 echo -e "\n${YELLOW}3. To test the /ask endpoint with your Oracle credentials:${NC}"
 echo 'Edit the sample request and then run:'
-echo '$ curl -X POST -H "Content-Type: application/json" -d @/tmp/sample-request.json http://backend:3005/ask | jq .'
+echo '$ curl -X POST -H "Content-Type: application/json" -d @/tmp/sample-request.json http://monitdb-dev.ddns.net:3005//ask | jq .'
 echo ""
 echo "Note: You'll need to update the sample request with valid Oracle credentials."
-echo "The API is now ready for use at http://backend:3005"
+echo "The API is now ready for use at http://monitdb-dev.ddns.net:3005/"
