@@ -1,9 +1,10 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Logger, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Logger, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { AskService } from './ask.service';
 import { AskRequestDto } from './dto/ask-request.dto';
 import { AskResponseDto } from './dto/ask-response.dto';
 import { DatabaseService } from '../database/database.service';
+import { BadRequestError } from 'openai';
 
 @ApiTags('Ask API')
 @Controller('ask')
@@ -104,6 +105,12 @@ export class AskController {
   })
   @Post('test-connection')
   async testConnection(@Body() connectionDetails: Omit<AskRequestDto, 'prompt'>) {
+    const { type } = connectionDetails;
+
+    if (!type) {
+      throw new BadRequestException('Missing type in request body');
+    }
+
     this.logger.log(`Testing database connection for type: ${connectionDetails.type}`);
     
     try {
